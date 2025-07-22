@@ -1,5 +1,5 @@
 (function() {
-  const BASE_URL = 'https://recorders-reproduce-mod-simulations.trycloudflare.com/scripttag';
+  const BASE_URL = 'https://feelings-slovenia-rounds-resort.trycloudflare.com/scripttag';
 
   const scriptElement = document.createElement('script');
   scriptElement.type = 'text/javascript';

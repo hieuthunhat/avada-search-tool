@@ -8,6 +8,7 @@ import OptionalScopes from '@assets/loadables/OptionalScopes/OptionalScopes';
 import {routePrefix} from '@assets/config/app';
 import Loading from '@assets/components/Loading';
 import Tables from '@assets/loadables/Tables/Tables';
+import Chat from '@assets/loadables/ChatPage/ChatPage';
 
 const FullscreenPageA = React.lazy(() => import('../pages/FullscreenPageA'));
 
@@ -22,6 +23,7 @@ const Routes = ({prefix = routePrefix}) => (
       <Route exact path={prefix + '/optional-scopes'} component={OptionalScopes} />
       <Route exact path={prefix + '/tables'} component={Tables} />
       <Route exact path={prefix + '/tables/:tab(simple|action)'} component={Tables} />
+      <Route exact path={prefix + '/chatting'} component={Chat} />
       <Route path="*" component={NotFound} />
     </Switch>
   </Suspense>

@@ -14,5 +14,9 @@ export const navigationLinks = [
   {
     label: 'Optional Scopes',
     destination: '/optional-scopes'
+  },
+  {
+    label: 'Chatting',
+    destination: '/chatting'
   }
 ];

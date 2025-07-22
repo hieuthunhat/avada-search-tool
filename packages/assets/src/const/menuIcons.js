@@ -12,6 +12,10 @@ const menuIcons = [
   {
     icon: SettingsIcon,
     destination: '/optional-scopes'
+  },
+  {
+    icon: SettingsIcon,
+    destination: '/chatting'
   }
 ];
 

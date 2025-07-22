@@ -33,6 +33,7 @@ export default function useFetchApi({
       const path = apiUrl || url;
       const separateChar = path.includes('?') ? '&' : '?';
       const query = params ? separateChar + stringify(params) : '';
+      console.log(path + query);
       const resp = await api(path + query);
       if (resp.hasOwnProperty('pageInfo')) setPageInfo(resp.pageInfo);
       if (resp.hasOwnProperty('count')) setCount(resp.count);
@@ -48,6 +49,7 @@ export default function useFetchApi({
           }
           return Array.isArray(newData) ? [...prev, ...newData] : {...prev, ...newData};
         });
+        console.log(data);
       }
     } catch (e) {
       handleError(e);
