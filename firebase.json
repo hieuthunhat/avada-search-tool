@@ -64,6 +64,10 @@
       {
         "source": "**",
         "destination": "/standalone.html"
+      },
+      {
+        "source": "/webhook/**",
+        "destination": "webhook"
       }
     ],
     "headers": [

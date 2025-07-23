@@ -9,7 +9,10 @@
     "production": "babel src --out-dir lib --copy-files --include-dotfiles",
     "development": "babel src --out-dir lib --copy-files --source-maps --include-dotfiles",
     "watch": "babel src --out-dir lib --copy-files --source-maps --include-dotfiles --watch --verbose",
-    "eslint-fix": "./node_modules/.bin/eslint --fix ."
+    "eslint-fix": "./node_modules/.bin/eslint --fix .",
+    "webhook:create": "babel-node src/scripts/setupWebhook.js",
+    "webhook:list": "babel-node -e \"import('./src/scripts/setupWebhook.js').then(m => m.listWebhooks())\"",
+    "dev:with-webhook": "npm run webhook:create && npm run serve"
   },
   "dependencies": {
     "@avada/core": "3.3.19",
@@ -23,18 +26,22 @@
     "graphql-tag": "^2.12.6",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.8.1",
+    "koa-bodyparser": "^4.4.1",
     "koa-ejs": "^4.2.0",
     "koa-router": "^7.4.0",
     "qs": "^6.11.0",
-    "shopify-api-node": "3.11.0",
+    "shopify-api-node": "^3.11.0",
     "weaviate-client": "^3.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
+    "@babel/node": "^7.28.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "concurrently": "^9.2.0",
+    "ngrok": "^5.0.0-beta.2"
   }
 }
