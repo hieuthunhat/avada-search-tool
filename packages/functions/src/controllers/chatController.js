@@ -20,14 +20,15 @@ async function searchProduct(ctx) {
     ctx.body = {
       success: true,
       data: {
-        query,
-        movies: (results?.objects || []).map(movie => ({
-          id: movie.uuid,
-          title: movie.properties?.title ?? 'Untitled',
-          overview: movie.properties?.overview ?? '',
-          vote_average: movie.properties?.vote_average ?? null,
-          release_date: movie.properties?.release_date ?? null,
-          distance: movie.metadata?.distance ?? null
+        answer: results.generative.text,
+        products: (results?.objects || []).map(product => ({
+          id: product.uuid,
+          name: product.properties?.name ?? 'Unnamed',
+          price: product.properties?.price ?? '0',
+          image: product.properties?.image ?? '',
+          tags: product.properties?.tags ?? [],
+          type: product.properties?.type ?? '',
+          description: product.properties?.description ?? ''
         }))
       }
     };

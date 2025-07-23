@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let client;
-let response;
 
 async function initWeaviate() {
   if (!client) {
@@ -19,27 +18,30 @@ async function initWeaviate() {
 
 async function searchProducts(searchQuery) {
   try {
-    await initWeaviate(); // đảm bảo client đã kết nối
-
+    await initWeaviate();
     if (await client.isLive()) {
-      const collectionExists = await client.collections.exists('Movie');
-      if (!collectionExists) return null;
-
-      const movies = client.collections.get('Movie');
-      response = await movies.generate.nearText(
-        searchQuery,
-        {singlePrompt: searchQuery},
-        {limit: 5, returnMetadata: ['distance']}
-      );
-
-      for (const item of response.objects) {
-        console.log(
-          `${item.properties.title}: ${new Date(item.properties.release_date).getUTCFullYear()}`
+      const collectionExists = await client.collections.exists('Product');
+      if (collectionExists) {
+        const products = client.collections.get('Product');
+        const response = await products.generate.nearText(
+          searchQuery,
+          {
+            groupedTask: `
+            Bạn là một nhân viên tư vấn bán hàng. Hãy giới thiệu cho khách hàng danh sách các sản phẩm dưới đây. 
+            Với mỗi sản phẩm, hãy:
+            - Ghi rõ tên sản phẩm (name)
+            - Ghi giá sản phẩm (price)
+            - Tự mô tả ngắn gọn, hấp dẫn về sản phẩm dựa trên tên sản phẩm.
+            Trình bày kết quả một cách tự nhiên, thân thiện.
+            `
+          },
+          {limit: 5}
         );
-        console.log(`Distance to query: ${item.metadata.distance}`);
+        console.log(response.generative.text);
+        return response;
+      } else {
+        console.log("Collection 'Product' does not exist.");
       }
-
-      return response;
     }
   } catch (error) {
     console.error('Error:', error);

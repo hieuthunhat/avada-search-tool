@@ -35,6 +35,7 @@ export default function useFetchApi({
       const query = params ? separateChar + stringify(params) : '';
       console.log(path + query);
       const resp = await api(path + query);
+      console.log(resp);
       if (resp.hasOwnProperty('pageInfo')) setPageInfo(resp.pageInfo);
       if (resp.hasOwnProperty('count')) setCount(resp.count);
       if (resp.hasOwnProperty('total')) setTotal(resp.total);
