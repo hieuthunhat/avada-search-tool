@@ -1,48 +1,41 @@
+const ProductRepository = require('../repositories/productRepository');
+
 async function listenCreateProduct(ctx) {
-  console.log('🆕 Product Created from Shopify');
-
-  let productData;
-
-  if (ctx.req.body) {
-    console.log('Enter FB funcs');
-    productData = ctx.req.body;
-  } else if (ctx.request.body) {
-    productData = ctx.request.body;
-  } else {
-    console.log('❌ No body found');
+  const productData = ctx.req.body;
+  if (!productData) {
     ctx.status = 400;
     ctx.body = {error: 'No body data'};
     return;
   }
 
-  console.log('Product ID:', productData?.id);
-  console.log('Product Title:', productData?.title);
-  console.log('Product Handle:', productData?.handle);
-  console.log('Product Status:', productData?.status);
-  console.log('Variants:', productData?.variants?.length || 0);
-
+  const data = await ProductRepository.addProduct({product: productData});
   ctx.status = 200;
-  ctx.body = {success: true, action: 'created'};
+  ctx.body = {success: true, action: 'created', data: data};
 }
 
 async function listenUpdateProduct(ctx) {
-  console.log('✏️ Product Updated from Shopify');
-  const productData = ctx.req.body || ctx.request.body;
-
-  console.log('Product:', productData?.title);
-
+  const productData = ctx.req.body;
+  if (!productData) {
+    ctx.status = 400;
+    ctx.body = {error: 'No body data'};
+    return;
+  }
+  const data = await ProductRepository.updateProduct({product: productData});
   ctx.status = 200;
-  ctx.body = {success: true, action: 'updated'};
+  ctx.body = {success: true, action: 'updated', data: data};
 }
 
 async function listenDeleteProduct(ctx) {
-  console.log('🗑️ Product Deleted from Shopify');
-  const productData = ctx.req.body || ctx.request.body;
-
-  console.log('Product ID:', productData?.id);
+  const productData = ctx.req.body;
+  if (!productData) {
+    ctx.status = 400;
+    ctx.body = {error: 'No body data'};
+    return;
+  }
+  const data = await ProductRepository.deleteProduct({product: productData});
 
   ctx.status = 200;
-  ctx.body = {success: true, action: 'deleted'};
+  ctx.body = {success: true, action: 'deleted', data: data};
 }
 
 export default {

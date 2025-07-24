@@ -14,6 +14,7 @@ async function initWeaviate() {
       }
     });
   }
+  return client;
 }
 
 module.exports = {initWeaviate};

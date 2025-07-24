@@ -1,5 +1,5 @@
-import Shopify from 'shopify-api-node';
-import dotenv from 'dotenv';
+const Shopify = require('shopify-api-node');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const shopify = new Shopify({
@@ -17,45 +17,48 @@ async function createWebhook(topic, endpoint) {
       address: `${webhookBaseUrl}/${endpoint}`,
       format: 'json'
     });
-    console.log(`✅ Webhook for ${topic} created:`, webhook);
+    console.log(`Webhook for ${topic} created:`, webhook);
     return webhook;
   } catch (error) {
-    console.error(`❌ Error creating webhook for ${topic}:`, error);
+    console.error(`Error creating webhook for ${topic}:`, error.message);
   }
 }
 
 async function listWebhooks() {
   try {
     const webhooks = await shopify.webhook.list();
-    console.log('📋 Existing webhooks:', webhooks);
+    console.log('Existing webhooks:', webhooks);
     return webhooks;
   } catch (error) {
-    console.error('❌ Error listing webhooks:', error);
+    console.error('Error listing webhooks:', error.message);
   }
 }
 
 async function deleteWebhook(webhookId) {
   try {
     await shopify.webhook.delete(webhookId);
-    console.log(`🗑️ Webhook ${webhookId} deleted`);
+    console.log(`Webhook ${webhookId} deleted`);
   } catch (error) {
-    console.error('❌ Error deleting webhook:', error);
+    console.error('Error deleting webhook:', error.message);
   }
 }
 
-// Chạy setup
 async function setup() {
-  console.log('📋 Listing existing webhooks...');
+  console.log('Listing existing webhooks...');
   await listWebhooks();
 
-  console.log('🚀 Creating product webhooks...');
+  console.log('Creating product webhooks...');
   await createWebhook('products/create', 'create');
   await createWebhook('products/update', 'update');
   await createWebhook('products/delete', 'delete');
 
-  console.log('✅ All webhooks set up!');
+  console.log('All webhooks set up!');
 }
 
 setup();
 
-export {createWebhook, listWebhooks, deleteWebhook};
+module.exports = {
+  createWebhook,
+  listWebhooks,
+  deleteWebhook
+};
