@@ -3,7 +3,7 @@
 client_id = "bc7740a99cb904a3eaf571da028e670d"
 name = "search-tool"
 handle = "search-tool"
-application_url = "https://h-dp-card-blackjack.trycloudflare.com/auth/shopify"
+application_url = "https://france-shannon-terms-mart.trycloudflare.com/auth/shopify"
 embedded = true
 
 [webhooks]
@@ -11,10 +11,10 @@ api_version = "2025-07"
 
 [auth]
 redirect_urls = [
-  "https://h-dp-card-blackjack.trycloudflare.com/auth/shopify/callback",
-  "https://h-dp-card-blackjack.trycloudflare.com/authSa/shopify/callback",
-  "https://h-dp-card-blackjack.trycloudflare.com/auth/shopify/embed/callback",
-  "https://h-dp-card-blackjack.trycloudflare.com/auth/shopify/embed/callback/updateScopes",
+  "https://france-shannon-terms-mart.trycloudflare.com/auth/shopify/callback",
+  "https://france-shannon-terms-mart.trycloudflare.com/authSa/shopify/callback",
+  "https://france-shannon-terms-mart.trycloudflare.com/auth/shopify/embed/callback",
+  "https://france-shannon-terms-mart.trycloudflare.com/auth/shopify/embed/callback/updateScopes",
   "https://localhost:3000/auth/shopify/callback",
   "https://localhost:3000/authSa/shopify/callback",
   "https://localhost:3000/auth/shopify/embed/callback"

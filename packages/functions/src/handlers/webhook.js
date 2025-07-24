@@ -3,7 +3,6 @@ import router from '@functions/routes/webhook';
 
 const webhookApi = new App();
 webhookApi.proxy = true;
-
 webhookApi.use(router.allowedMethods());
 webhookApi.use(router.routes());
 

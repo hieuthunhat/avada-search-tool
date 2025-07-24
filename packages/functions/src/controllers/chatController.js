@@ -1,4 +1,4 @@
-const ChatRepository = require('../repositories/chatRepository');
+const ProductRepository = require('../repositories/productRepository');
 
 async function searchProduct(ctx) {
   try {
@@ -14,7 +14,7 @@ async function searchProduct(ctx) {
       return;
     }
 
-    const results = await ChatRepository.searchProducts(query);
+    const results = await ProductRepository.searchProducts(query);
 
     ctx.status = 200;
     ctx.body = {

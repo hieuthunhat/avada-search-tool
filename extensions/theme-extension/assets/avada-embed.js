@@ -1,5 +1,5 @@
 (function() {
-  const BASE_URL = 'https://h-dp-card-blackjack.trycloudflare.com/scripttag';
+  const BASE_URL = 'https://france-shannon-terms-mart.trycloudflare.com/scripttag';
 
   const scriptElement = document.createElement('script');
   scriptElement.type = 'text/javascript';

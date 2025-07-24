@@ -29,6 +29,7 @@
     "koa-bodyparser": "^4.4.1",
     "koa-ejs": "^4.2.0",
     "koa-router": "^7.4.0",
+    "node-cron": "^4.2.1",
     "qs": "^6.11.0",
     "shopify-api-node": "^3.11.0",
     "weaviate-client": "^3.7.0"
