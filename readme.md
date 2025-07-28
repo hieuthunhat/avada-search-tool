@@ -1,6 +1,33 @@
-# app-name
+# Avada Search Tool using RAG
 
-> Application tag line describe here
+> AI-powered product search tool for Shopify stores using Retrieval-Augmented Generation with Weaviate vector database and OpenAI
+
+## Overview
+
+This application provides intelligent product search capabilities for Shopify stores by combining:
+- **Vector Database**: Weaviate for semantic product storage
+- **AI Embeddings**: OpenAI text2vec for product vectorization  
+- **Generative AI**: OpenAI GPT for natural language responses
+- **Real-time Sync**: Webhooks for automatic product synchronization
+
+## Features
+
+- 🔍 **Semantic Search**: Natural language product queries
+- 🤖 **AI Responses**: Personalized product recommendations
+- ⚡ **Real-time Sync**: Automatic Shopify product updates
+- 🎯 **Vector Search**: Similarity-based product matching
+- 📊 **Analytics**: Search performance tracking
+
+## Notes
+- This project serves as an **educational demonstration** of RAG (Retrieval-Augmented Generation) implementation within the Avada framework ecosystem
+- The application is designed to be deployed as a **Storefront widget** for end-users, rather than an Admin dashboard tool
+- **Framework Integration**: Demonstrates how AI-powered search can be embedded using Avada's development patterns and best practices
+- **Technical Guidance**: Project development was supervised and reviewed by CTO Nguyen Tuan Anh
+- **Learning Objectives**: 
+  - Vector database integration with Shopify
+  - Real-time webhook synchronization
+  - AI-powered semantic search implementation
+  - Modern frontend-backend architecture patterns
 
 ## Preparation
 
@@ -11,6 +38,10 @@
 * [A Shopify partner account](https://www.shopify.com/partners)
 
 * A Shopify app in partner account
+
+* [A Weaviate Cloud account](https://console.weaviate.cloud/) for vector database
+
+* [An OpenAI API account](https://platform.openai.com/) for AI embeddings and generation
 
 ## Installation
 
@@ -35,6 +66,21 @@ firebase use --add
 }
 ```
 
+* Create a file `.env` inside `packages/functions` for AI services configuration
+
+```dotenv
+# Weaviate Configuration
+WEAVIATE_API_KEY=<Your Weaviate API Key>
+WEAVIATE_URL=<Your Weaviate Cluster URL>
+
+# OpenAI Configuration  
+OPENAI_API_KEY=<Your OpenAI API Key>
+
+# Shopify Configuration
+SHOPIFY_API_KEY=<Your Shopify Access Token>
+SHOPIFY_STORE=<your-store>.myshopify.com
+```
+
 * Create a file `.env.development` with content in [packages/assets](/packages/assets)
 
 ```dotenv
@@ -51,6 +97,26 @@ VITE_FIREBASE_MEASUREMENT_ID=<Insert here>
 * Deploy the Firestore default indexes
 ```bash
 firebase deploy --only firestore
+```
+
+* Initialize Weaviate collection for products
+```bash
+cd packages/functions
+node src/services/weaviateCollection.js
+```
+
+* Sync all products from Shopify to Weaviate
+```bash
+node src/scripts/syncAllProducts.js
+```
+
+* Setup Shopify webhooks for real-time sync
+```bash
+# Clean up old webhooks
+node src/scripts/cleanupWebhooks.js
+
+# Setup new webhooks
+node src/scripts/setupWebhook.js
 ```
 
 ## Development
@@ -132,3 +198,11 @@ You can enable Analytics for your project from Firebase project
 - [ ] Add testing
 - [x] CI/CD
 - [ ] Add document
+- [x] Weaviate vector database integration
+- [x] OpenAI embeddings and generation
+- [x] Real-time Shopify webhook sync
+- [x] Semantic product search
+- [ ] Search analytics dashboard
+- [ ] Multi-language support
+- [ ] Advanced filtering options
+- [ ] Migrate to Storefront
