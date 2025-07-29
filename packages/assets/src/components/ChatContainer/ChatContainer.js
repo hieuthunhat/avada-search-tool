@@ -32,7 +32,7 @@ const ChatContainer = () => {
       <ResourceItem
         id={id}
         key={id}
-        url={`#product-${id}`}
+        url={`products/${id}`}
         accessibilityLabel={`View details for ${name}`}
       >
         <InlineStack gap="300" align="start">
