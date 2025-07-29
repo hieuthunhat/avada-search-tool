@@ -1,5 +1,12 @@
 const ChatRepository = require('../repositories/chatRepository');
 
+/**
+ * Search products using AI-powered semantic search
+ * @param {Object} ctx - Koa context object
+ * @param {Object} ctx.query - Query parameters
+ * @param {string} ctx.query.query - Search query string
+ * @returns {Promise<void>}
+ */
 async function searchProduct(ctx) {
   try {
     const query = ctx.query?.query;

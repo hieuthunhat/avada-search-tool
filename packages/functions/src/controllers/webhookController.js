@@ -1,5 +1,11 @@
 const ProductRepository = require('../repositories/productRepository');
 
+/**
+ * Webhook handler for Shopify product creation events
+ * @param {Object} ctx - Koa context object
+ * @param {Object} ctx.req.body - Product data from Shopify
+ * @returns {Promise<void>}
+ */
 async function listenCreateProduct(ctx) {
   const productData = ctx.req.body;
   if (!productData) {
@@ -13,6 +19,12 @@ async function listenCreateProduct(ctx) {
   ctx.body = {success: true, action: 'created', data: data};
 }
 
+/**
+ * Webhook handler for Shopify product update events
+ * @param {Object} ctx - Koa context object
+ * @param {Object} ctx.req.body - Updated product data from Shopify
+ * @returns {Promise<void>}
+ */
 async function listenUpdateProduct(ctx) {
   const productData = ctx.req.body;
   if (!productData) {
@@ -25,6 +37,12 @@ async function listenUpdateProduct(ctx) {
   ctx.body = {success: true, action: 'updated', data: data};
 }
 
+/**
+ * Webhook handler for Shopify product deletion events
+ * @param {Object} ctx - Koa context object
+ * @param {Object} ctx.req.body - Deleted product data from Shopify
+ * @returns {Promise<void>}
+ */
 async function listenDeleteProduct(ctx) {
   const productData = ctx.req.body;
   if (!productData) {
