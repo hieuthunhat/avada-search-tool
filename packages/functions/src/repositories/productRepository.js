@@ -1,8 +1,15 @@
 const WeaviateClient = require('../services/weaviataClient');
 const {generateUuid5} = require('weaviate-client');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const className = 'ProductShopify2';
+const className = process.env.WEAVIATE_CLOUD_DB;
 
+/**
+ * Search products using AI-powered semantic search
+ * @param {string} searchQuery - Search query from user
+ * @returns {Promise<Object>} Response with AI-generated text and matching products
+ */
 async function searchProducts(searchQuery) {
   const client = WeaviateClient.initWeaviate();
   try {
@@ -34,6 +41,12 @@ async function searchProducts(searchQuery) {
   }
 }
 
+/**
+ * Add a new product to Weaviate collection
+ * @param {Object} params - Parameters object
+ * @param {Object} params.product - Shopify product object
+ * @returns {Promise<void>}
+ */
 async function addProduct({product}) {
   const client = await WeaviateClient.initWeaviate();
   const products = client.collections.get(className);
@@ -57,7 +70,7 @@ async function addProduct({product}) {
         rating: 0,
         stock: product.variants?.[0]?.inventory_quantity || 0,
         tags: product.tags || '',
-        isActive: product.status === 'active',
+        isActive: product.status,
         discount: 0
       }
     });
@@ -66,6 +79,12 @@ async function addProduct({product}) {
   }
 }
 
+/**
+ * Update an existing product in Weaviate collection
+ * @param {Object} params - Parameters object
+ * @param {Object} params.product - Updated Shopify product object
+ * @returns {Promise<void>}
+ */
 async function updateProduct({product}) {
   const client = await WeaviateClient.initWeaviate();
   const products = client.collections.get(className);
@@ -99,6 +118,12 @@ async function updateProduct({product}) {
   }
 }
 
+/**
+ * Delete a product from Weaviate collection
+ * @param {Object} params - Parameters object
+ * @param {Object} params.product - Shopify product object to delete
+ * @returns {Promise<boolean>} True if deletion successful, false otherwise
+ */
 const deleteProduct = async ({product}) => {
   const client = await WeaviateClient.initWeaviate();
   const products = client.collections.get(className);
