@@ -5,6 +5,11 @@ dotenv.config();
 
 const {configure} = weaviate;
 
+/**
+ * Initialize Weaviate collection for Shopify products
+ * Creates ProductShopify2 collection with proper schema and AI configuration
+ * @returns {Promise<Object>} Weaviate client instance
+ */
 async function initCollection() {
   const client = await WeaviateService.initWeaviate();
 
@@ -13,6 +18,16 @@ async function initCollection() {
       const collectionExists = await client.collections.exists('ProductShopify2');
 
       if (!collectionExists) {
+        /**
+         * Create Weaviate collection with complete product schema
+         * Properties include:
+         * - product_id: Shopify product ID (TEXT)
+         * - name, description, category, tags: Product details (TEXT)
+         * - price, rating, discount: Numeric values (NUMBER/INT)
+         * - image: Product image URL (TEXT)
+         * - createdAt, updatedAt: Timestamps (DATE)
+         * - isActive: Product status (TEXT)
+         */
         await client.collections.create({
           name: 'ProductShopify2',
           properties: [
@@ -29,7 +44,7 @@ async function initCollection() {
             {name: 'tags', dataType: configure.dataType.TEXT},
             {name: 'createdAt', dataType: configure.dataType.DATE},
             {name: 'updatedAt', dataType: configure.dataType.DATE},
-            {name: 'isActive', dataType: configure.dataType.BOOLEAN},
+            {name: 'isActive', dataType: configure.dataType.TEXT},
             {name: 'discount', dataType: configure.dataType.NUMBER}
           ],
           vectorizers: weaviate.configure.vectorizer.text2VecOpenAI(),
